@@ -1,0 +1,41 @@
+version: '3.9'
+
+networks:
+  vio-net:
+
+volumes:
+  vio-db:
+
+services:
+  vio-db:
+    build:
+      context: ./deploy
+      dockerfile: db.Dockerfile
+    container_name: vio-db
+    user: root  # needed because windows hates me
+    volumes:
+      - vio-db:/var/lib/postgresql/data
+    networks:
+      - vio-net
+    ports:
+      - "25432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  geolocation:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: geolocation
+    networks:
+      - vio-net
+    ports:
+      - "8087:8087"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - vio-db
+    environment:
+      - GEOLOCATION_CONFIG_PATH=config/geolocation/prod.yaml

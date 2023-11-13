@@ -1,0 +1,79 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "# Description of the REST API of the service for working with location data.",
+    "title": "Service for FindHotel Coding Challenge.",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8087",
+  "paths": {
+    "/api/geolocation/{ip_address}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Get Geo Location by IP address.",
+        "operationId": "GetGeoLocation",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "IP address",
+            "name": "ip_address",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Location": {
+      "type": "object",
+      "title": "Location represents location.",
+      "properties": {
+        "city": {
+          "type": "string",
+          "x-go-name": "City"
+        },
+        "country": {
+          "type": "string",
+          "x-go-name": "Country"
+        },
+        "country_code": {
+          "type": "string",
+          "x-go-name": "CountryCode"
+        },
+        "ip_address": {
+          "type": "string",
+          "x-go-name": "IPAddress"
+        },
+        "latitude": {
+          "type": "number",
+          "format": "double",
+          "x-go-name": "Latitude"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double",
+          "x-go-name": "Longitude"
+        },
+        "mystery_value": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "MysteryValue"
+        }
+      },
+      "x-go-package": "_/Users/viktorkyarginsky/Work/examples/vio_com_exercise/internal/models"
+    }
+  }
+}
